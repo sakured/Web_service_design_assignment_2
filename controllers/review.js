@@ -1,5 +1,3 @@
-const express = require("express");
-const router = express.Router();
 const pool = require('../db');
 
 
@@ -66,12 +64,3 @@ exports.deleteReview = (req, res) => {
         res.json({ message: 'Review deleted' });
     });
 };
-
-// Router mappings
-router.get("/:bookId", exports.getReviewsByBook);
-router.get("/:id", exports.getReview);
-router.post("/", exports.createReview);
-router.put("/:id", exports.updateReview);
-router.delete("/:id", exports.deleteReview);
-
-module.exports = router;

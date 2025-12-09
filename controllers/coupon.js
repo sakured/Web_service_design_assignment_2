@@ -1,5 +1,3 @@
-const express = require("express");
-const router = express.Router();
 const pool = require('../db');
 
 /**
@@ -60,12 +58,3 @@ exports.deleteCoupon = (req, res) => {
         res.json({ message: 'Coupon deleted' });
     });
 };
-
-// Router mappings
-router.get("/:id", exports.getCoupon);
-router.get("/", exports.getCoupons);
-router.post("/", exports.createCoupon);
-router.put("/:id", exports.updateCoupon);
-router.delete("/:id", exports.deleteCoupon);
-
-module.exports = router;

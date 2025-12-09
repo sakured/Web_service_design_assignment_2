@@ -1,5 +1,3 @@
-const express = require("express");
-const router = express.Router();
 const pool = require('../db');
 
 /**
@@ -66,12 +64,3 @@ exports.deleteSeller = (req, res) => {
         res.json({ message: 'Seller deleted' });
     });
 };
-
-// Router mappings
-router.get("/:id", exports.getSeller);
-router.get("/", exports.getSellers);
-router.post("/", exports.createSeller);
-router.put("/:id", exports.updateSeller);
-router.delete("/:id", exports.deleteSeller);
-
-module.exports = router;

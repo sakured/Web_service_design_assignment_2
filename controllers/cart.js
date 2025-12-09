@@ -1,5 +1,3 @@
-const express = require("express");
-const router = express.Router();
 const pool = require('../db');
 
 /**
@@ -61,8 +59,6 @@ exports.deleteCart = (req, res) => {
     });
 };
 
-const pool = require('../db');
-
 /**
  * Checkout: transform cart items into orders
  */
@@ -99,12 +95,3 @@ exports.checkout = (req, res) => {
     });
 };
 
-// Router mappings
-router.get("/:id", exports.getCart);
-router.get("/", exports.getCarts);
-router.post("/", exports.createCart);
-router.put("/:id", exports.updateCart);
-router.delete("/:id", exports.deleteCart);
-router.post("/:userId", exports.checkout);
-
-module.exports = router;

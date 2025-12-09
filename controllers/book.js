@@ -1,5 +1,3 @@
-const express = require("express");
-const router = express.Router();
 const pool = require('../db');
 
 /**
@@ -75,12 +73,3 @@ exports.deleteBook = (req, res) => {
         res.json({ message: 'Book deleted' });
     });
 };
-
-// Router mappings
-router.get("/:id", exports.getBook);
-router.get("/", exports.getBooks);
-router.post("/", exports.createBook);
-router.put("/:id", exports.updateBook);
-router.delete("/:id", exports.deleteBook);
-
-module.exports = router;

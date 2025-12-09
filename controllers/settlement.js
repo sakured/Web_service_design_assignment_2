@@ -1,5 +1,3 @@
-const express = require("express");
-const router = express.Router();
 const pool = require('../db');
 
 /**
@@ -67,12 +65,3 @@ exports.deleteSettlement = (req, res) => {
         res.json({ message: 'Settlement deleted' });
     });
 };
-
-// Router mappings
-router.get("/:id", exports.getSettlement);
-router.get("/", exports.getSettlements);
-router.post("/", exports.createSettlement);
-router.put("/:id", exports.updateSettlement);
-router.delete("/:id", exports.deleteSettlement);
-
-module.exports = router;

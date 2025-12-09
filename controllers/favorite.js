@@ -1,5 +1,3 @@
-const express = require("express");
-const router = express.Router();
 const pool = require('../db');
 
 /**
@@ -48,11 +46,3 @@ exports.deleteFavorite = (req, res) => {
         res.json({ message: 'Favorite deleted' });
     });
 };
-
-// Router mappings
-router.get("/:id", exports.getFavorite);
-router.get("/", exports.getFavorites);
-router.post("/", exports.createFavorite);
-router.delete("/:id", exports.deleteFavorite);
-
-module.exports = router;

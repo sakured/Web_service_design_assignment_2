@@ -1,15 +1,16 @@
 // app.js
 const express = require("express");
-const userRoutes = require("./controllers/userController");
-const bookRoutes = require("./controllers/bookController");
-const orderRoutes = require("./controllers/orderController");
-const reviewRoutes = require("./controllers/reviewController");
-const couponRoutes = require("./controllers/couponController");
-const discountRoutes = require("./controllers/discountController");
-const cartRoutes = require("./controllers/cartController");
-const favoriteRoutes = require("./controllers/favoriteController");
-const sellerRoutes = require("./controllers/sellerController");
-const settlementRoutes = require("./controllers/settlementController");
+
+const userRoutes = require("./routes/user");
+const bookRoutes = require("./routes/book");
+const orderRoutes = require("./routes/order");
+const reviewRoutes = require("./routes/review");
+const couponRoutes = require("./routes/coupon");
+const discountRoutes = require("./routes/discount");
+const cartRoutes = require("./routes/cart");
+const favoriteRoutes = require("./routes/favorite");
+const sellerRoutes = require("./routes/seller");
+const settlementRoutes = require("./routes/settlement");
 
 const app = express();
 

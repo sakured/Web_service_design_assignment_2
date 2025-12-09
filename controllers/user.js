@@ -1,7 +1,4 @@
-const express = require("express");
-const router = express.Router();
 const pool = require("../db");
-
 /**
  * Create a new user
  */
@@ -74,28 +71,3 @@ exports.deleteUser = (req, res) => {
         res.json({ message: 'User deleted' });
     });
 };
-
-/**
- * Login
- */
-exports.login = (req, res) => {
-    // TO DO
-}
-
-/**
- * Logout
- */
-exports.logout = (req, res) => {
-    // TO DO
-}
-
-// Router mappings
-router.get("/", exports.getUsers);
-router.get("/:id", exports.getUser);
-router.post("/", exports.createUser);
-router.put("/:id", exports.updateUser);
-router.delete("/:id", exports.deleteUser);
-router.post("/login", exports.login);
-router.post("/logout", exports.logout);
-
-module.exports = router;
