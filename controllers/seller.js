@@ -64,3 +64,25 @@ exports.deleteSeller = (req, res) => {
         res.json({ message: 'Seller deleted' });
     });
 };
+
+/**
+ * Get books by seller
+ */
+exports.getBooksBySeller = (req, res) => {
+    const sellerId = req.params.sellerId;
+
+    if (!sellerId) return res.status(400).json({ message: 'sellerId is required' });
+
+    const sql = `
+        SELECT * 
+        FROM books
+        WHERE seller_id = ?
+        ORDER BY created_at DESC
+    `;
+
+    pool.query(sql, [sellerId], (err, results) => {
+        if (err) return res.status(500).json({ message: err.message });
+
+        res.json({ content: results });
+    });
+};

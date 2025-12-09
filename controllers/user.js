@@ -71,3 +71,14 @@ exports.deleteUser = (req, res) => {
         res.json({ message: 'User deleted' });
     });
 };
+
+/**
+ * Get orders for a specific user
+ */
+exports.getUserOrders = (req,res)=>{
+    const userId = req.params.id;
+    pool.query("SELECT * FROM orders WHERE user_id=?", [userId], (err, results)=>{
+        if(err) return res.status(500).json({ code:'DATABASE_ERROR', message: err.message });
+        res.json(results);
+    });
+};

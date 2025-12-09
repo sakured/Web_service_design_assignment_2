@@ -11,11 +11,21 @@ const cartRoutes = require("./routes/cart");
 const favoriteRoutes = require("./routes/favorite");
 const sellerRoutes = require("./routes/seller");
 const settlementRoutes = require("./routes/settlement");
+const errorHandler = require('./middlewares/errorHandler');
 
 const app = express();
 
+// Middleware for routes not found
+app.use((req, res, next) => {
+    const err = new Error('Resource not found');
+    err.status = 404;
+    err.code = 'RESOURCE_NOT_FOUND';
+    next(err);
+});
+
 // Middlewares
 app.use(express.json());
+app.use(errorHandler);
 
 // Routes
 app.use("/users", userRoutes);

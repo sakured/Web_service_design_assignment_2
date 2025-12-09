@@ -20,21 +20,22 @@ exports.createBook = (req, res) => {
  * Get all books with search, sort, pagination
  */
 exports.getBooks = (req, res) => {
-    let { page = 1, size = 10, keyword = '', sort = 'title' } = req.query;
-    page = parseInt(page); size = parseInt(size);
-    const offset = (page - 1) * size;
+    let { page=0, size=20, keyword='', sort='created_at,DESC' } = req.query;
+    const [sortField, sortDir] = sort.split(',');
 
+    const offset = page * size;
     const sql = `
         SELECT * FROM books 
         WHERE title LIKE ? OR author LIKE ?
-        ORDER BY ${sort} 
+        ORDER BY ${sortField} ${sortDir}
         LIMIT ? OFFSET ?
     `;
-    pool.query(sql, [`%${keyword}%`, `%${keyword}%`, size, offset], (err, results) => {
-        if (err) return res.status(500).json({ error: err });
-        res.json(results);
+    pool.query(sql, [`%${keyword}%`, `%${keyword}%`, parseInt(size), offset], (err, results) => {
+        if(err) return res.status(500).json({ code:'DATABASE_ERROR', message: err.message });
+        res.json({ content: results, page: parseInt(page), size: parseInt(size) });
     });
 };
+
 
 /**
  * Get single book
@@ -71,5 +72,16 @@ exports.deleteBook = (req, res) => {
     pool.query(sql, [req.params.id], (err, results) => {
         if (err) return res.status(500).json({ error: err });
         res.json({ message: 'Book deleted' });
+    });
+};
+
+/**
+ * Get reviews for a book
+ */
+exports.getBookReviews = (req,res)=>{
+    const bookId = req.params.id;
+    pool.query("SELECT * FROM reviews WHERE book_id=?", [bookId], (err, results)=>{
+        if(err) return res.status(500).json({ code:'DATABASE_ERROR', message: err.message });
+        res.json(results);
     });
 };

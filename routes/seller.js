@@ -7,5 +7,6 @@ router.get("/", sellerController.getSellers);
 router.post("/", sellerController.createSeller);
 router.put("/:id", sellerController.updateSeller);
 router.delete("/:id", sellerController.deleteSeller);
+router.get("/seller/:sellerId", sellerController.getBooksBySeller);
 
 module.exports = router;
