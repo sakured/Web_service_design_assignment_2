@@ -1,4 +1,5 @@
 // app.js
+require("dotenv").config();
 const express = require("express");
 
 const userRoutes = require("./routes/user");
@@ -11,21 +12,11 @@ const cartRoutes = require("./routes/cart");
 const favoriteRoutes = require("./routes/favorite");
 const sellerRoutes = require("./routes/seller");
 const settlementRoutes = require("./routes/settlement");
+const authRoutes = require("./routes/auth");
 const errorHandler = require('./middlewares/errorHandler');
 
 const app = express();
-
-// Middleware for routes not found
-app.use((req, res, next) => {
-    const err = new Error('Resource not found');
-    err.status = 404;
-    err.code = 'RESOURCE_NOT_FOUND';
-    next(err);
-});
-
-// Middlewares
 app.use(express.json());
-app.use(errorHandler);
 
 // Routes
 app.use("/users", userRoutes);
@@ -38,6 +29,18 @@ app.use("/carts", cartRoutes);
 app.use("/favorites", favoriteRoutes);
 app.use("/sellers", sellerRoutes);
 app.use("/settlements", settlementRoutes);
+app.use("/", authRoutes);
 
+// Middleware for routes not found
+app.use((req, res, next) => {
+    const err = new Error('Resource not found');
+    err.status = 404;
+    err.code = 'RESOURCE_NOT_FOUND';
+    next(err);
+});
+
+
+// Middlewares
+app.use(errorHandler);
 
 module.exports = app;

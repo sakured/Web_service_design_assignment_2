@@ -5,16 +5,25 @@ const JWT_SECRET = process.env.JWT_SECRET || 'secretkey';
  * Authentication middleware
  */
 exports.authMiddleware = (req, res, next) => {
-    const authHeader = req.headers['authorization'];
-    if (!authHeader) return res.status(401).json({ message: 'No token' });
+    const authHeader = req.headers.authorization;
 
-    const token = authHeader.split(' ')[1];
+    if (!authHeader) {
+        return res.status(401).json({ message: "No token provided" });
+    }
+
+    const parts = authHeader.split(" ");
+    if (parts.length !== 2 || parts[0] !== "Bearer") {
+        return res.status(401).json({ message: "Invalid token format" });
+    }
+
+    const token = parts[1];
+
     try {
         const decoded = jwt.verify(token, JWT_SECRET);
-        req.user = decoded; // { id, isAdmin }
+        req.user = decoded;
         next();
     } catch (err) {
-        return res.status(401).json({ message: 'Invalid token' });
+        return res.status(401).json({ message: "Invalid or expired token" });
     }
 };
 
@@ -22,6 +31,8 @@ exports.authMiddleware = (req, res, next) => {
  * Admin only middleware
  */
 exports.adminOnly = (req, res, next) => {
-    if (!req.user.isAdmin) return res.status(403).json({ message: 'Access denied' });
+    if (!req.user?.isAdmin) {
+        return res.status(403).json({ message: "Admin access required" });
+    }
     next();
 };

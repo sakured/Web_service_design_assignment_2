@@ -1,15 +1,33 @@
 const pool = require("../db");
+const bcrypt = require('bcryptjs');
+
 /**
  * Create a new user
  */
 exports.createUser = (req, res) => {
+    const REQUIRED_FIELDS = ["is_admin", "email", "password", "name", "birth_date", "gender", "address", "phone_number"]
+
+    const missingFields = REQUIRED_FIELDS.filter(
+        field => req.body[field] === undefined || req.body[field] === null || req.body[field] === ""
+    );
+
+    if (missingFields.length > 0) {
+        return res.status(400).json({
+            code: "VALIDATION_ERROR",
+            message: "Missing required fields",
+            missingFields
+        });
+    }
+
     const sql = `
         INSERT INTO users (is_admin, email, password, name, birth_date, gender, address, phone_number)
         VALUES (?, ?, ?, ?, ?, ?, ?, ?)
     `;
     const { is_admin, email, password, name, birth_date, gender, address, phone_number } = req.body;
 
-    pool.query(sql, [is_admin, email, password, name, birth_date, gender, address, phone_number], (err, results) => {
+    const hashedPassword = bcrypt.hashSync(password, 10);
+
+    pool.query(sql, [is_admin, email, hashedPassword, name, birth_date, gender, address, phone_number], (err, results) => {
         if (err) return res.status(500).json({ error: err });
         res.status(201).json({ message: 'User created', id: results.insertId });
     });
