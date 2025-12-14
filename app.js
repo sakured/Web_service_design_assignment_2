@@ -34,6 +34,11 @@ app.use("/sellers", sellerRoutes);
 app.use("/settlements", settlementRoutes);
 app.use("/", authRoutes);
 
+// Root
+app.get("/", (req, res) => {
+    res.json({ message: "Welcome on the bookstore API" });
+});
+
 // Middleware for routes not found
 app.use((req, res, next) => {
     const err = new Error('Resource not found');
