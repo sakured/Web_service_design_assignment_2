@@ -6,7 +6,7 @@ Developped by PASSELEGUE Anne Sarah
 This project is a backend e-commerce system for a bookstore, built entirely with Express.js and MySQL, with no frontend. It allows users to browse and purchase books, manage accounts, and supports basic administrative functions. All functionality is provided via a REST API, with a database designed to ensure data integrity and secure handling of authentication.  
   
 ### Swagger  
-The Swagger documentation can be viewed at the address `/api-docs`  
+The Swagger documentation can be viewed at the address `/api-docs`.  
   
 ### API root address  
 During local development, the API is available at :  
@@ -17,7 +17,7 @@ Accessing this endpoint returns a welcome message and confirms that the API is r
 ### How to install  
 Import database (file *bookstore.sql*)  
 Clone repository  
-Create a *.env* file  
+Create a *.env* file with the variables `DB_HOST`, `DB_USER`, `DB_PASSWORD`, `DB_NAME` and `DB_PORT`   
 `npm install` to install dependencies (only the first time)  
 `node server.js` to start server  
   
