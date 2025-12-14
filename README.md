@@ -12,7 +12,7 @@ This project is a backend e-commerce system for a bookstore, built entirely with
 ### How to install  
 Import database (file *bookstore.sql*)  
 Clone repository  
-Create a *.env* file
+Create a *.env* file  
 `npm install` to install dependencies (only the first time)  
 `node server.js` to start server  
   

@@ -18,6 +18,9 @@ const errorHandler = require('./middlewares/errorHandler');
 const app = express();
 app.use(express.json());
 
+const { swaggerUi, swaggerSpec } = require('./swagger');
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
 // Routes
 app.use("/users", userRoutes);
 app.use("/books", bookRoutes);
