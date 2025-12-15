@@ -39,6 +39,19 @@ app.get("/", (req, res) => {
     res.json({ message: "Welcome on the bookstore API" });
 });
 
+// health check
+app.get("/health", (req, res) => {
+  res.status(200).json({
+    status: "ok",
+    name: "api",
+    version: process.env.npm_package_version || "unknown",
+    node: process.version,
+    env: process.env.NODE_ENV || "production",
+    buildTime: process.env.BUILD_TIME || null,
+    uptime: process.uptime()
+  });
+});
+
 // Middleware for routes not found
 app.use((req, res, next) => {
     const err = new Error('Resource not found');
